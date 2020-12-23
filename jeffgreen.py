@@ -29,16 +29,27 @@ dic = {'AEA' : '+2000'}
 
 def check_for_jeff_score(b):
     time.sleep(2)
-    score = False
+    jg = False
     post_to_twitter('Missing piece Jeff Green')
     while True:
         elem = b.find_element_by_class_name('scoring-play')
-        if 'Jeff Green makes' in elem.text and not score:
-            post_to_twitter('Missing piece Jeff Green')
-            print('Missing piece Jeff Green')
-            score = True
-        if 'Jeff Green makes' not in elem.text:
-            score = False
+        if 'Jeff Green enters' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green has checked in')
+            jg = True
+        if 'Jeff Green steals' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green steal')
+        if 'Jeff Green assists' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green assist')
+        if 'Jeff Green makes two' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green scores')
+        if 'for Jeff Green' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green has checked out :(')
+        if 'Jeff Green makes dunk' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green dunked the ball!')
+        if 'Jeff Green turnover' in elem.text and not jg:
+            post_to_twitter('Missing piece Jeff Green turned the ball over :(')
+        if 'Jeff Green' not in elem.text:
+            jg = False
         time.sleep(5)
 
 browser = init('https://www.espn.com/nba/playbyplay?gameId=401266805')
